@@ -68,7 +68,7 @@ def header(brand, tagline, accent, n, total):
 def footer(repo, accent):
     return (rect(60, H - 150, W - 120, 2, accent, rx=1, opacity=0.5)
             + text(60, H - 90, "github.com/KhaledDawod88/" + repo, 28, "#ffffffaa", 500)
-            + text(W - 60, H - 90, "free tools only", 28, accent, 600, "end"))
+            + text(W - 60, H - 90, "by Khaled Dawod", 28, accent, 700, "end"))
 
 
 def title_block(s, y, size=78, fill="#fff", width=20, anchor="start", x=60):
@@ -230,14 +230,14 @@ def L_phrase(it, n, total, c):
     s += rect(60, y + 10, 200, 8, c["accent"], 4)
     y += 120
     for i, line in enumerate(wrap(it["ar"], 22)):
-        s += text(W - 60, y + i * 100, line, 74, "#ffe9a8", 700, "end", AR, 'direction="rtl" unicode-bidi="plaintext"')
+        s += text(W - 60, y + i * 100, line, 74, "#ffe9a8", 700, "start", AR, 'direction="rtl" unicode-bidi="plaintext"')
     y += len(wrap(it["ar"], 22)) * 100 + 40
     body, ny = para(100, y + 120, it["example"], 36, 38, "#fff", 500)
     h = ny - y + 20 + 60
     s += rect(60, y, W - 120, h, "#ffffff14", 28, c["accent"], 3) + text(100, y + 64, "IN CONTEXT", 28, c["accent"], 800, extra='letter-spacing="3"') + body
     y += h + 40
     for i, line in enumerate(wrap(it["example_ar"], 30)):
-        s += text(W - 80, y + 60 + i * 70, line, 46, "#ffffffcc", 500, "end", AR, 'direction="rtl" unicode-bidi="plaintext"')
+        s += text(W - 80, y + 60 + i * 70, line, 46, "#ffffffcc", 500, "start", AR, 'direction="rtl" unicode-bidi="plaintext"')
     return svg_doc(s + footer(c["repo"], c["accent"]), c["c1"], c["c2"])
 
 
@@ -285,6 +285,7 @@ def L_noor(it, n, total, c):
     s += t
     p, pw = pill((W - int(len(it["ref"]) * 30 * 0.58 + 56)) // 2, y0 + h - 100, it["ref"], c["accent"], "#0b1020", 30)
     s += p
+    s += text(W // 2, H - 140, "by Khaled Dawod", 30, "#f6e3a1", 700, "middle")
     s += text(W // 2, H - 90, it.get("note", "English is a meaning of the text, not a word-for-word translation."), 24, "#ffffffb0", 500, "middle")
     return svg_doc(s, c["c1"], c["c2"], mask)
 
@@ -309,15 +310,15 @@ def L_fact(it, n, total, c):
 # ---- layout: recipe --------------------------------------------------------
 def L_recipe(it, n, total, c):
     s = header(c["brand"], c["tagline"], c["accent"], n, total)
-    cx, cy = W // 2, 540
-    s += f'<circle cx="{cx}" cy="{cy}" r="230" fill="#ffffff" opacity="0.95"/><circle cx="{cx}" cy="{cy}" r="190" fill="#f4efe6"/>'
+    cx, cy = W // 2, 470
+    s += f'<circle cx="{cx}" cy="{cy}" r="200" fill="#ffffff" opacity="0.95"/><circle cx="{cx}" cy="{cy}" r="168" fill="#f4efe6"/>'
     pal = it["palette"]
     for i in range(14):
         a = i * 2.399
-        r = 30 + (i * 37) % 120
+        r = 24 + (i * 37) % 100
         x, y = cx + r * math.cos(a), cy + r * math.sin(a)
         s += f'<circle cx="{x:.0f}" cy="{y:.0f}" r="{34 + (i*7)%26}" fill="{pal[i % len(pal)]}"/>'
-    t, y = title_block(it["title"], 880, 70, width=22, anchor="middle")
+    t, y = title_block(it["title"], 770, 70, width=22, anchor="middle")
     s += t
     p1, w1 = pill(60, y + 10, it["time"], c["accent"], "#0b1020", 30)
     p2, w2 = pill(60 + w1 + 24, y + 10, it["kcal"], "#ffffff", "#0b1020", 30)
