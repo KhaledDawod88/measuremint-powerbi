@@ -1,0 +1,134 @@
+[
+  {
+    "title": "Your first safe measure",
+    "code": [
+      "Total Sales =",
+      "SUM ( Sales[Amount] )"
+    ],
+    "head": [
+      "Year",
+      "Total Sales"
+    ],
+    "rows": [
+      [
+        "2024",
+        "1.2M"
+      ],
+      [
+        "2025",
+        "1.5M"
+      ]
+    ],
+    "tip": "Keep all measures in one table called _Measures. Reports stay tidy and easy to find."
+  },
+  {
+    "title": "Year over year in one line",
+    "code": [
+      "Sales LY =",
+      "CALCULATE (",
+      "  [Total Sales],",
+      "  SAMEPERIODLASTYEAR ( 'Date'[Date] )",
+      ")"
+    ],
+    "head": [
+      "Month",
+      "Sales",
+      "Sales LY"
+    ],
+    "rows": [
+      [
+        "Jan",
+        "98K",
+        "90K"
+      ],
+      [
+        "Feb",
+        "105K",
+        "97K"
+      ]
+    ],
+    "tip": "Needs a real Date table marked as a date table. Never use the auto date hierarchy for this."
+  },
+  {
+    "title": "Divide without errors",
+    "code": [
+      "Margin % =",
+      "DIVIDE ( [Profit], [Total Sales] )"
+    ],
+    "head": [
+      "Region",
+      "Margin %"
+    ],
+    "rows": [
+      [
+        "North",
+        "21%"
+      ],
+      [
+        "South",
+        "18%"
+      ],
+      [
+        "East",
+        "(blank)"
+      ]
+    ],
+    "tip": "DIVIDE returns blank instead of an error when the denominator is zero. Prefer it over the / sign."
+  },
+  {
+    "title": "Running total",
+    "code": [
+      "Running Total =",
+      "CALCULATE (",
+      "  [Total Sales],",
+      "  FILTER (",
+      "    ALL ( 'Date'[Date] ),",
+      "    'Date'[Date] <= MAX ( 'Date'[Date] )",
+      "  )",
+      ")"
+    ],
+    "head": [
+      "Month",
+      "Running"
+    ],
+    "rows": [
+      [
+        "Jan",
+        "98K"
+      ],
+      [
+        "Feb",
+        "203K"
+      ],
+      [
+        "Mar",
+        "331K"
+      ]
+    ],
+    "tip": "ALL removes the date filter, then FILTER keeps every date up to the current one."
+  },
+  {
+    "title": "Traffic-light status text",
+    "code": [
+      "Status =",
+      "IF ( [Margin %] >= 0.2,",
+      "   \"Good\",",
+      "   \"Review\" )"
+    ],
+    "head": [
+      "Region",
+      "Status"
+    ],
+    "rows": [
+      [
+        "North",
+        "Good"
+      ],
+      [
+        "South",
+        "Review"
+      ]
+    ],
+    "tip": "Use the status measure in conditional formatting: one rule drives colour on every visual."
+  }
+]
